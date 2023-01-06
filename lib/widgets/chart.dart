@@ -25,7 +25,7 @@ class Chart extends StatelessWidget {
         'day': DateFormat.E().format(weekDay).substring(0, 1),
         'amount': totalSum,
       };
-    });
+    }).reversed.toList();
   }
 
   double get totalSpending {
@@ -41,19 +41,36 @@ class Chart extends StatelessWidget {
       margin: EdgeInsets.all(20),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: groupedTransactionValues.map((data) {
-            return Flexible(
-              fit: FlexFit.tight,
-              child: ChartBar(
-                  label: data['day'],
-                  spendingAmount: data['amount'],
-                  spendingPctOfTotal: totalSpending == 0.0
-                      ? 0.0
-                      : (data['amount'] as double) / totalSpending),
-            );
-          }).toList(),
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 3),
+              decoration: BoxDecoration(
+                border: Border.all(color: Theme.of(context).primaryColor),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text(
+                  '\$${totalSpending} spent this week',
+                  style: TextStyle(fontFamily: 'QuickSand'),
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: groupedTransactionValues.map((data) {
+                return Expanded(
+                  child: ChartBar(
+                      label: data['day'],
+                      spendingAmount: data['amount'],
+                      spendingPctOfTotal: totalSpending == 0.0
+                          ? 0.0
+                          : (data['amount'] as double) / totalSpending),
+                );
+              }).toList(),
+            ),
+          ],
         ),
       ),
     );
