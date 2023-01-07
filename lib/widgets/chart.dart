@@ -41,9 +41,8 @@ class Chart extends StatelessWidget {
       margin: EdgeInsets.all(20),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Container(
+        child:
+            /*Container(
               margin: const EdgeInsets.symmetric(vertical: 3),
               decoration: BoxDecoration(
                 border: Border.all(color: Theme.of(context).primaryColor),
@@ -56,21 +55,19 @@ class Chart extends StatelessWidget {
                   style: TextStyle(fontFamily: 'QuickSand'),
                 ),
               ),
-            ),
+            ),*/
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: groupedTransactionValues.map((data) {
-                return Expanded(
-                  child: ChartBar(
-                      label: data['day'],
-                      spendingAmount: data['amount'],
-                      spendingPctOfTotal: totalSpending == 0.0
-                          ? 0.0
-                          : (data['amount'] as double) / totalSpending),
-                );
-              }).toList(),
-            ),
-          ],
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: groupedTransactionValues.map((data) {
+            return Expanded(
+              child: ChartBar(
+                  label: data['day'],
+                  spendingAmount: data['amount'],
+                  spendingPctOfTotal: totalSpending == 0.0
+                      ? 0.0
+                      : (data['amount'] as double) / totalSpending),
+            );
+          }).toList(),
         ),
       ),
     );
