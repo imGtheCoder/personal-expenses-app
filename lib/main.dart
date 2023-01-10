@@ -46,9 +46,26 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
   final List<Transaction> _userTransactions = [];
   bool _showChart = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+  
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
 
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
@@ -142,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _appBarBuilder() {
-    Platform.isIOS
+    return Platform.isIOS
         ? CupertinoNavigationBar(
             backgroundColor: Theme.of(context).primaryColor,
             middle: Text('Personal Expenses'),

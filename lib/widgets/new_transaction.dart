@@ -10,7 +10,7 @@ class NewTransaction extends StatefulWidget {
   State<NewTransaction> createState() => _NewTransactionState();
 }
 
-class _NewTransactionState extends State<NewTransaction> {
+class _NewTransactionState extends State<NewTransaction>{
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime _selectedDate;
